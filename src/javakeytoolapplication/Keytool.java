@@ -7,6 +7,7 @@ package javakeytoolapplication;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.security.tools.keytool.Main;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Keytool {
 
     public static void executeCommand(String command) {
         try {
-            sun.security.tools.keytool.Main.main(parse(command));
+            Main.main(parse(command));
         } catch (Exception ex) {
             Logger.getLogger(Keytool.class.getName()).log(Level.SEVERE, null, ex);
         }
