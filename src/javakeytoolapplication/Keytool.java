@@ -47,34 +47,36 @@ public class Keytool {
         String[] data = new String[]{jskPath, jskStorePass, jskKeyPass};
         return data;
     }
-    public static void createCertificateRequest()
+    public static void createCertificateRequest(String Alias, String Path, String StorePass, String KeyPass)
     {
+        //String fileName = Path.substring(0, String.c);
         String command = " -certreq "
-                + " -alias justatest6 "
-                + " -file C:\\Users\\ytoteva\\Desktop\\justatest6.csr "
+                + " -alias " + Alias + " "
+                + " -file " + Path + " "
                 + " -keystore C:\\Users\\ytoteva\\Desktop\\justatest6.jks "
                 + " -storepass 123456 "
                 + " -keypass 123456";
         executeCommand(command);
     }
-    // keytool -certreq -alias is1tesorg -file "C:\Users\ytoteva\Desktop\is1tesorg.csr" -keystore "C:\Users\ytoteva\Desktop\is1tesorg.jks" -storepass 123456 -keypass 123456
+    
     public static void list(String[] data) {
         String jskPath = null;
         String jskStorePass = null;
         String jskKeyPass = null;
         
         for (int i = 0; i < 10; i++) {
-            if(i == 0)
-            {
-                jskPath = data[0];
-            }
-            else if(i == 1)
-            {
-                jskStorePass = data[1];
-            }
-            else if(i == 2)
-            {
-                jskKeyPass = data[2];
+            switch (i) {
+                case 0:
+                    jskPath = data[0];
+                    break;
+                case 1:
+                    jskStorePass = data[1];
+                    break;
+                case 2:
+                    jskKeyPass = data[2];
+                    break;
+                default:
+                    break;
             }
         }
         
@@ -83,7 +85,6 @@ public class Keytool {
                 + " -keystore " + jskPath + " "
                 + " -storepass " + jskStorePass + " "
                 + " -keypass " + jskKeyPass;
-        //"C:\Users\ytoteva\Desktop\is1tesorg.jks"
         executeCommand(command);
     }
 }
