@@ -15,7 +15,8 @@ import java.util.logging.Logger;
 // http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8u40-b25/sun/security/tools/keytool/Main.java
 public class Keytool {
 
-    private static final String Country = "BG";
+    private static final String COUNTRY = "BG";
+
     public static void executeCommand(String command) {
         try {
             sun.security.tools.keytool.Main.main(parse(command));
@@ -36,34 +37,36 @@ public class Keytool {
         String command = " -genkeypair "
                 + " -alias " + Alias + " "
                 + " -keyalg RSA " + " -keysize 2048 "
-                + " -dname C=" + Country + ",S=OID:" + OID + ",CN=" + CommonName + " "
-                + " -keystore " + Path + "\\"+ Alias + ".jsk" + " "
+                + " -dname C=" + COUNTRY + ",S=OID:" + OID + ",CN=" + CommonName + " "
+                + " -keystore " + Path + "\\" + Alias + ".jsk" + " "
                 + " -storepass " + StorePass + " "
                 + " -keypass " + KeyPass + " ";
-        jskPath = Path + "\\"+ Alias + ".jsk";
+        jskPath = Path + "\\" + Alias + ".jsk";
         jskStorePass = StorePass;
         jskKeyPass = KeyPass;
         executeCommand(command);
         String[] data = new String[]{jskPath, jskStorePass, jskKeyPass};
         return data;
     }
-    public static void createCertificateRequest(String Alias, String Path, String StorePass, String KeyPass)
-    {
-        //String fileName = Path.substring(0, String.c);
+
+    public static void createCertificateRequest(String Alias, String Path, String StorePass, String KeyPass) {
+        String filePath = Path.substring(0, Path.lastIndexOf("\\"));
+        String fileName = Path.substring(Path.lastIndexOf("\\") + 1, Path.lastIndexOf("."));
+        String csrPath = filePath + "\\" + fileName + ".csr";
         String command = " -certreq "
                 + " -alias " + Alias + " "
-                + " -file " + Path + " "
-                + " -keystore C:\\Users\\ytoteva\\Desktop\\justatest6.jks "
-                + " -storepass 123456 "
-                + " -keypass 123456";
+                + " -file " + csrPath + " "
+                + " -keystore " + Path + " "
+                + " -storepass " + StorePass + " "
+                + " -keypass " + KeyPass;
         executeCommand(command);
     }
-    
+
     public static void list(String[] data) {
         String jskPath = null;
         String jskStorePass = null;
         String jskKeyPass = null;
-        
+
         for (int i = 0; i < 10; i++) {
             switch (i) {
                 case 0:
@@ -79,7 +82,7 @@ public class Keytool {
                     break;
             }
         }
-        
+
         String command = " -list "
                 + " -v "
                 + " -keystore " + jskPath + " "
