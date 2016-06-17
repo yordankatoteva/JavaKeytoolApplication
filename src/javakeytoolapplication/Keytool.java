@@ -8,7 +8,6 @@ package javakeytoolapplication;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sun.security.tools.keytool.Main;
-
 /**
  *
  * @author ytoteva
